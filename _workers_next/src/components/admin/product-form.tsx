@@ -47,56 +47,54 @@ export default function ProductForm({ product, categories = [] }: { product?: an
                     {product && <input type="hidden" name="id" value={product.id} />}
 
                     <div className="grid gap-2">
+                        <Label htmlFor="slug">{t('admin.productForm.slugLabel')}</Label>
                         <div className="flex items-center gap-2">
                             <span className="text-sm text-muted-foreground">/buy/</span>
-                            <div className="floating-field flex-1 min-w-0">
-                                <Input
-                                    id="slug"
-                                    name="slug"
-                                    defaultValue={product?.id || ''}
-                                    placeholder=" "
-                                    pattern="^[a-zA-Z0-9_-]+$"
-                                    className="flex-1"
-                                    disabled={!!product}
-                                />
-                                <Label htmlFor="slug" className="floating-label">{t('admin.productForm.slugLabel')}</Label>
-                            </div>
+                            <Input
+                                id="slug"
+                                name="slug"
+                                defaultValue={product?.id || ''}
+                                placeholder={t('admin.productForm.slugPlaceholder')}
+                                pattern="^[a-zA-Z0-9_-]+$"
+                                className="flex-1"
+                                disabled={!!product}
+                            />
                         </div>
                         <p className="text-xs text-muted-foreground">
                             {product ? t('admin.productForm.slugReadonly') : t('admin.productForm.slugHint')}
                         </p>
                     </div>
 
-                    <div className="floating-field">
-                        <Input id="name" name="name" defaultValue={product?.name} placeholder=" " required />
-                        <Label htmlFor="name" className="floating-label">{t('admin.productForm.nameLabel')}</Label>
+                    <div className="grid gap-2">
+                        <Label htmlFor="name">{t('admin.productForm.nameLabel')}</Label>
+                        <Input id="name" name="name" defaultValue={product?.name} placeholder={t('admin.productForm.namePlaceholder')} required />
                     </div>
 
-                    <div className="floating-field">
-                        <Input id="price" name="price" type="number" step="0.01" defaultValue={product?.price} placeholder=" " required />
-                        <Label htmlFor="price" className="floating-label">{t('admin.productForm.priceLabel')}</Label>
+                    <div className="grid gap-2">
+                        <Label htmlFor="price">{t('admin.productForm.priceLabel')}</Label>
+                        <Input id="price" name="price" type="number" step="0.01" defaultValue={product?.price} placeholder={t('admin.productForm.pricePlaceholder')} required />
                     </div>
 
-                    <div className="floating-field">
+                    <div className="grid gap-2">
+                        <Label htmlFor="compareAtPrice">{t('admin.productForm.compareAtPriceLabel')}</Label>
                         <Input
                             id="compareAtPrice"
                             name="compareAtPrice"
                             type="number"
                             step="0.01"
                             defaultValue={product?.compareAtPrice || ''}
-                            placeholder=" "
+                            placeholder={t('admin.productForm.compareAtPricePlaceholder')}
                         />
-                        <Label htmlFor="compareAtPrice" className="floating-label">{t('admin.productForm.compareAtPriceLabel')}</Label>
                     </div>
 
-                    <div className="floating-field">
-                        <Input id="purchaseLimit" name="purchaseLimit" type="number" defaultValue={product?.purchaseLimit} placeholder=" " />
-                        <Label htmlFor="purchaseLimit" className="floating-label">{t('admin.productForm.purchaseLimitLabel') || "Purchase Limit (0 or empty for unlimited)"}</Label>
+                    <div className="grid gap-2">
+                        <Label htmlFor="purchaseLimit">{t('admin.productForm.purchaseLimitLabel') || "Purchase Limit (0 or empty for unlimited)"}</Label>
+                        <Input id="purchaseLimit" name="purchaseLimit" type="number" defaultValue={product?.purchaseLimit} placeholder={t('admin.productForm.purchaseLimitPlaceholder') || "e.g. 1"} />
                     </div>
 
-                    <div className="floating-field">
-                        <Input id="category" name="category" list="ldc-category-list" defaultValue={product?.category} placeholder=" " />
-                        <Label htmlFor="category" className="floating-label">{t('admin.productForm.categoryLabel')}</Label>
+                    <div className="grid gap-2">
+                        <Label htmlFor="category">{t('admin.productForm.categoryLabel')}</Label>
+                        <Input id="category" name="category" list="ldc-category-list" defaultValue={product?.category} placeholder={t('admin.productForm.categoryPlaceholder')} />
                         <datalist id="ldc-category-list">
                             {categories.map(c => (
                                 <option key={c.name} value={c.name} />
@@ -140,35 +138,33 @@ export default function ProductForm({ product, categories = [] }: { product?: an
                         </div>
                         {showWarning && (
                             <div className="grid gap-2">
-                                <div className="floating-field">
-                                    <Textarea
-                                        id="purchaseWarning"
-                                        name="purchaseWarning"
-                                        defaultValue={product?.purchaseWarning || ''}
-                                        placeholder=" "
-                                        className="min-h-[60px]"
-                                    />
-                                    <Label htmlFor="purchaseWarning" className="floating-label">{t('admin.productForm.purchaseWarningLabel')}</Label>
-                                </div>
+                                <Label htmlFor="purchaseWarning">{t('admin.productForm.purchaseWarningLabel')}</Label>
+                                <Textarea
+                                    id="purchaseWarning"
+                                    name="purchaseWarning"
+                                    defaultValue={product?.purchaseWarning || ''}
+                                    placeholder={t('admin.productForm.purchaseWarningPlaceholder')}
+                                    className="min-h-[60px]"
+                                />
                                 <p className="text-xs text-muted-foreground">{t('admin.productForm.purchaseWarningHint')}</p>
                             </div>
                         )}
                     </div>
 
-                    <div className="floating-field">
-                        <Input id="image" name="image" defaultValue={product?.image} placeholder=" " />
-                        <Label htmlFor="image" className="floating-label">{t('admin.productForm.imageLabel')}</Label>
+                    <div className="grid gap-2">
+                        <Label htmlFor="image">{t('admin.productForm.imageLabel')}</Label>
+                        <Input id="image" name="image" defaultValue={product?.image} placeholder={t('admin.productForm.imagePlaceholder')} />
                     </div>
 
-                    <div className="floating-field">
+                    <div className="grid gap-2">
+                        <Label htmlFor="description">{t('admin.productForm.descLabel')}</Label>
                         <Textarea
                             id="description"
                             name="description"
                             defaultValue={product?.description}
-                            placeholder=" "
+                            placeholder={t('admin.productForm.descPlaceholder')}
                             className="min-h-[80px]"
                         />
-                        <Label htmlFor="description" className="floating-label">{t('admin.productForm.descLabel')}</Label>
                     </div>
 
                     <div className="pt-4 flex justify-end gap-2">
