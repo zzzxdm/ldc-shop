@@ -7,7 +7,33 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             name: "Linux DO",
             type: "oauth",
             authorization: "https://connect.linux.do/oauth2/authorize",
-            token: "https://connect.linux.do/oauth2/token",
+            token: {
+                url: "https://connect.linux.do/oauth2/token",
+                async conform(response: Response) {
+                    const contentType = response.headers.get("content-type") || ""
+                    if (contentType.includes("application/json")) return response
+
+                    const body = await response.clone().text()
+                    const bodyPreview = body.slice(0, 1000)
+
+                    console.error("[auth-temp][linuxdo-token]", {
+                        status: response.status,
+                        contentType,
+                        bodyPreview,
+                    })
+
+                    // Some providers return JSON with an unexpected content-type.
+                    if (bodyPreview.trim().startsWith("{")) {
+                        return new Response(body, {
+                            status: response.status,
+                            statusText: response.statusText,
+                            headers: { "content-type": "application/json" },
+                        })
+                    }
+
+                    return response
+                },
+            },
             userinfo: "https://connect.linux.do/api/user",
             issuer: "https://connect.linux.do/",
             clientId: process.env.OAUTH_CLIENT_ID,
