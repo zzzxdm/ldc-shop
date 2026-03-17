@@ -10,6 +10,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge"
 import { Plus, Eye, EyeOff, ArrowUp, ArrowDown } from "lucide-react"
 import { deleteProduct, toggleProductStatus, reorderProduct } from "@/actions/admin"
+import { INFINITE_STOCK } from "@/lib/constants"
 import { toast } from "sonner"
 
 interface Product {
@@ -182,7 +183,7 @@ export function AdminProductsContent({ products, lowStockThreshold }: AdminProdu
                                 </TableCell>
                                 <TableCell>
                                     <div className="flex items-center gap-2">
-                                        <span>{product.stockCount}</span>
+                                        <span>{product.stockCount >= INFINITE_STOCK ? "∞" : product.stockCount}</span>
                                         {product.stockCount <= threshold && (
                                             <Badge variant="destructive" className="text-[10px]">{t('admin.products.lowStock')}</Badge>
                                         )}
