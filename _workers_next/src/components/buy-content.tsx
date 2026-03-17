@@ -315,105 +315,104 @@ export function BuyContent({
                     <div className="space-y-6">
                         <div className="relative overflow-hidden rounded-[2rem] border border-border/40 bg-gradient-to-br from-card via-card/96 to-primary/5 shadow-[0_30px_90px_-48px_rgba(15,23,42,0.32)]">
                             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(255,255,255,0.78),_transparent_32%)] dark:bg-[radial-gradient(circle_at_top_right,_rgba(255,255,255,0.08),_transparent_36%)]" />
-                            <div className="relative">
-                                <div className="grid gap-0 lg:grid-cols-[minmax(0,0.98fr)_minmax(0,1.02fr)]">
-                                    <div className="relative flex flex-col border-b border-border/20 p-5 md:p-6 lg:border-b-0 lg:border-r">
-                                        <div className="relative flex aspect-[4/3] w-full items-center justify-center overflow-hidden rounded-[1.65rem] bg-card/50 p-3 md:p-4">
-                                            {activeGalleryImage ? (
-                                                <button
+                            <div className="relative space-y-6 p-5 md:space-y-8 md:p-6 lg:p-8">
+                                <div className="relative overflow-hidden rounded-[1.8rem] border border-border/20 bg-card/48 p-3 shadow-[0_24px_60px_-42px_rgba(15,23,42,0.35)] md:p-4">
+                                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.25),_transparent_48%)] dark:bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.08),_transparent_52%)]" />
+                                    <div className="relative flex aspect-[16/10] w-full items-center justify-center overflow-hidden rounded-[1.45rem] bg-card/72">
+                                        {activeGalleryImage ? (
+                                            <button
+                                                type="button"
+                                                className="group relative h-full w-full cursor-zoom-in text-left"
+                                                onClick={() => setIsGalleryDialogOpen(true)}
+                                                aria-label={t('buy.viewLargeImage')}
+                                                title={t('buy.viewLargeImage')}
+                                            >
+                                                <Image
+                                                    src={activeGalleryImage}
+                                                    alt={displayProduct.name}
+                                                    fill
+                                                    sizes="(max-width: 1024px) 100vw, 60vw"
+                                                    className="object-contain"
+                                                    draggable={false}
+                                                />
+                                                <div className="absolute bottom-3 right-3 inline-flex h-7 w-7 items-center justify-center rounded-full border border-border/15 bg-background/56 text-muted-foreground/70 shadow-sm backdrop-blur-sm transition-colors group-hover:text-foreground/75">
+                                                    <Expand className="h-3.5 w-3.5" />
+                                                </div>
+                                            </button>
+                                        ) : (
+                                            <div className="flex h-full items-center justify-center">
+                                                <ProductImagePlaceholder productId={displayProduct.id} productName={displayProduct.name} size="md" fill />
+                                            </div>
+                                        )}
+                                        {canSwitchGallery && (
+                                            <>
+                                                <Button
                                                     type="button"
-                                                    className="relative h-full w-full cursor-zoom-in text-left"
-                                                    onClick={() => setIsGalleryDialogOpen(true)}
-                                                    aria-label={t('buy.viewLargeImage')}
-                                                    title={t('buy.viewLargeImage')}
+                                                    variant="secondary"
+                                                    size="icon"
+                                                    className="absolute left-3 top-1/2 h-10 w-10 -translate-y-1/2 rounded-full border border-border/35 bg-background/85 shadow-lg backdrop-blur hover:bg-background"
+                                                    onClick={showPreviousGalleryImage}
+                                                    aria-label="Previous image"
                                                 >
-                                                    <Image
-                                                        src={activeGalleryImage}
-                                                        alt={displayProduct.name}
-                                                        fill
-                                                        sizes="(max-width: 1024px) 100vw, 56vw"
-                                                        className="object-contain"
-                                                        draggable={false}
-                                                    />
-                                                    <div className="absolute bottom-3 right-3 inline-flex h-7 w-7 items-center justify-center rounded-full border border-border/20 bg-background/62 text-muted-foreground/85 shadow-sm backdrop-blur-sm transition-colors group-hover:text-foreground/80">
-                                                        <Expand className="h-3.5 w-3.5" />
-                                                    </div>
-                                                </button>
-                                            ) : (
-                                                <div className="flex h-full items-center justify-center">
-                                                    <ProductImagePlaceholder productId={displayProduct.id} productName={displayProduct.name} size="md" fill />
+                                                    <ChevronLeft className="h-5 w-5" />
+                                                </Button>
+                                                <Button
+                                                    type="button"
+                                                    variant="secondary"
+                                                    size="icon"
+                                                    className="absolute right-3 top-1/2 h-10 w-10 -translate-y-1/2 rounded-full border border-border/35 bg-background/85 shadow-lg backdrop-blur hover:bg-background"
+                                                    onClick={showNextGalleryImage}
+                                                    aria-label="Next image"
+                                                >
+                                                    <ChevronRight className="h-5 w-5" />
+                                                </Button>
+                                                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full border border-border/25 bg-background/78 px-3 py-1 text-xs font-medium text-muted-foreground backdrop-blur">
+                                                    {activeGalleryIndex + 1} / {galleryImages.length}
                                                 </div>
-                                            )}
-                                            {canSwitchGallery && (
-                                                <>
-                                                    <Button
-                                                        type="button"
-                                                        variant="secondary"
-                                                        size="icon"
-                                                        className="absolute left-3 top-1/2 h-10 w-10 -translate-y-1/2 rounded-full border border-border/40 bg-background/85 shadow-lg backdrop-blur hover:bg-background"
-                                                        onClick={showPreviousGalleryImage}
-                                                        aria-label="Previous image"
-                                                    >
-                                                        <ChevronLeft className="h-5 w-5" />
-                                                    </Button>
-                                                    <Button
-                                                        type="button"
-                                                        variant="secondary"
-                                                        size="icon"
-                                                        className="absolute right-3 top-1/2 h-10 w-10 -translate-y-1/2 rounded-full border border-border/40 bg-background/85 shadow-lg backdrop-blur hover:bg-background"
-                                                        onClick={showNextGalleryImage}
-                                                        aria-label="Next image"
-                                                    >
-                                                        <ChevronRight className="h-5 w-5" />
-                                                    </Button>
-                                                    <div className="absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full border border-border/30 bg-background/80 px-3 py-1 text-xs font-medium text-muted-foreground backdrop-blur">
-                                                        {activeGalleryIndex + 1} / {galleryImages.length}
-                                                    </div>
-                                                </>
-                                            )}
-                                        </div>
-                                    </div>
-
-                                    <div className="relative flex flex-col justify-center p-6 md:p-8">
-                                        <div className="mb-4 flex flex-wrap items-center gap-2">
-                                            {displayProduct.category && displayProduct.category !== 'general' && (
-                                                <Badge variant="secondary" className="rounded-full border border-border/45 bg-background/70 px-3 py-1 capitalize">
-                                                    {displayProduct.category}
-                                                </Badge>
-                                            )}
-                                            {displayProduct.isHot && (
-                                                <Badge className="rounded-full border-0 bg-orange-500 px-3 py-1 text-white shadow-lg shadow-orange-500/20">
-                                                    {t('buy.hot')}
-                                                </Badge>
-                                            )}
-                                        </div>
-
-                                        <div className="space-y-4">
-                                            <h1 className="text-xl font-semibold tracking-tight text-foreground md:text-2xl">
-                                                {displayProduct.name}
-                                            </h1>
-
-                                            {metaLoading ? (
-                                                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                                                    <Loader2 className="h-4 w-4 animate-spin" />
-                                                    <span>{t('common.loading')}</span>
-                                                </div>
-                                            ) : showReviewSummary ? (
-                                                <div className="flex w-fit flex-wrap items-center gap-3 rounded-full border border-border/45 bg-background/72 px-4 py-2 text-sm text-muted-foreground">
-                                                    <StarRating rating={Math.round(averageRatingState)} size="sm" />
-                                                    <span className="font-medium text-foreground">{averageRatingState.toFixed(1)}</span>
-                                                    <span>{reviewCountState} {t('review.title')}</span>
-                                                </div>
-                                            ) : null}
-                                        </div>
+                                            </>
+                                        )}
                                     </div>
                                 </div>
 
-                                <div className="border-t border-border/20 p-6 md:p-8">
-                                    <div className="prose prose-sm max-w-none break-words text-foreground/88 dark:prose-invert md:prose-base">
-                                        <ReactMarkdown>
-                                            {displayProduct.description || t('buy.noDescription')}
-                                        </ReactMarkdown>
+                                <div className="space-y-5">
+                                    <div className="flex flex-wrap items-center gap-2">
+                                        {displayProduct.category && displayProduct.category !== 'general' && (
+                                            <Badge variant="secondary" className="rounded-full border border-border/45 bg-background/70 px-3 py-1 capitalize">
+                                                {displayProduct.category}
+                                            </Badge>
+                                        )}
+                                        {displayProduct.isHot && (
+                                            <Badge className="rounded-full border-0 bg-orange-500 px-3 py-1 text-white shadow-lg shadow-orange-500/20">
+                                                {t('buy.hot')}
+                                            </Badge>
+                                        )}
+                                    </div>
+
+                                    <div className="space-y-4">
+                                        <h1 className="text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
+                                            {displayProduct.name}
+                                        </h1>
+
+                                        {metaLoading ? (
+                                            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                                                <Loader2 className="h-4 w-4 animate-spin" />
+                                                <span>{t('common.loading')}</span>
+                                            </div>
+                                        ) : showReviewSummary ? (
+                                            <div className="flex w-fit flex-wrap items-center gap-3 rounded-full border border-border/45 bg-background/72 px-4 py-2 text-sm text-muted-foreground">
+                                                <StarRating rating={Math.round(averageRatingState)} size="sm" />
+                                                <span className="font-medium text-foreground">{averageRatingState.toFixed(1)}</span>
+                                                <span>{reviewCountState} {t('review.title')}</span>
+                                            </div>
+                                        ) : null}
+                                    </div>
+
+                                    <div className="rounded-[1.55rem] border border-border/20 bg-background/55 p-5 md:p-6">
+                                        <div className="prose prose-sm max-w-none break-words text-foreground/88 dark:prose-invert md:prose-base">
+                                            <ReactMarkdown>
+                                                {displayProduct.description || t('buy.noDescription')}
+                                            </ReactMarkdown>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
