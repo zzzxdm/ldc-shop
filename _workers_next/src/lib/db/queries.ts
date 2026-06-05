@@ -165,6 +165,12 @@ async function ensureDatabaseInitialized() {
                 dbInitialized = true;
                 return;
             }
+            if (CURRENT_SCHEMA_VERSION === 21 && parsedVersion === 20) {
+                await ensureProductsColumns();
+                await setSetting('schema_version', String(CURRENT_SCHEMA_VERSION));
+                dbInitialized = true;
+                return;
+            }
         } catch (e) {
             // Settings table likely doesn't exist, proceed to full checks
         }
